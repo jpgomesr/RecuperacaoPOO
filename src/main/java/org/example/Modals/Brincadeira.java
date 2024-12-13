@@ -1,7 +1,6 @@
-package org.example;
+package org.example.Modals;
 
 public class Brincadeira {
-    public static int geradorCodigo = 1;
     private int codigo;
     private String nome;
     private int cansaco;
@@ -11,7 +10,6 @@ public class Brincadeira {
     private int divertimento;
 
     public Brincadeira(String nome, int divertimento, int cansaco, int fome, int sede, int sujeira) {
-        this.codigo = geradorCodigo++;
         this.nome = nome;
         this.divertimento = divertimento;
         this.cansaco = cansaco;

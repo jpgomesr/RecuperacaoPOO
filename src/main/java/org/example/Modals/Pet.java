@@ -1,7 +1,6 @@
-package org.example;
+package org.example.Modals;
 
 public class Pet {
-    public static int geradorCodigo = 1;
     private int codigo;
     private String nome;
     private boolean vivo;
@@ -13,8 +12,9 @@ public class Pet {
     private int higiene;
     private int vontadeBanheiro;
 
+    public Pet() {}
+
     public Pet(String nome) {
-        this.codigo = geradorCodigo++;
         this.nome = nome;
         this.vivo = true;
         this.acordado = true;
@@ -24,6 +24,20 @@ public class Pet {
         this.diversao = 100;
         this.higiene = 100;
         this.vontadeBanheiro = 100;
+    }
+
+    public Pet(int codigo, String nome, boolean vivo, boolean acordado, int sede, int fome, int energia,
+               int diversao, int higiene, int vontadeBanheiro) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.vivo = vivo;
+        this.acordado = acordado;
+        this.sede = sede;
+        this.fome = fome;
+        this.energia = energia;
+        this.diversao = diversao;
+        this.higiene = higiene;
+        this.vontadeBanheiro = vontadeBanheiro;
     }
 
     public void beberAgua() {
@@ -123,7 +137,7 @@ public class Pet {
         }
     }
 
-    public String getVivo() {
+    public String getVivoString() {
         if (this.vivo) {
             return "Sim";
         } else {
@@ -131,7 +145,7 @@ public class Pet {
         }
     }
 
-    public String getAcordado() {
+    public String getAcordadoString() {
         if (this.acordado) {
             return "Sim";
         } else {
@@ -139,11 +153,95 @@ public class Pet {
         }
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public boolean isVivo() {
+        return vivo;
+    }
+
+    public boolean isAcordado() {
+        return acordado;
+    }
+
+    public int getSede() {
+        return sede;
+    }
+
+    public int getFome() {
+        return fome;
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public int getDiversao() {
+        return diversao;
+    }
+
+    public int getHigiene() {
+        return higiene;
+    }
+
+    public int getVontadeBanheiro() {
+        return vontadeBanheiro;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setVivo(boolean vivo) {
+        this.vivo = vivo;
+    }
+
+    public void setAcordado(boolean acordado) {
+        this.acordado = acordado;
+    }
+
+    public void setSede(int sede) {
+        this.sede = sede;
+    }
+
+    public void setFome(int fome) {
+        this.fome = fome;
+    }
+
+    public void setEnergia(int energia) {
+        this.energia = energia;
+    }
+
+    public void setDiversao(int diversao) {
+        this.diversao = diversao;
+    }
+
+    public void setHigiene(int higiene) {
+        this.higiene = higiene;
+    }
+
+    public void setVontadeBanheiro(int vontadeBanheiro) {
+        this.vontadeBanheiro = vontadeBanheiro;
+    }
+
+    public boolean getVivo() {
+        return vivo;
+    }
+
+    public boolean getAcordado() {
+        return acordado;
+    }
+
     @Override
     public String toString() {
         return "Nome: " + this.nome + "\n" +
-                "Vivo: " + this.getVivo() + "\n" +
-                "Acordado: " + this.getAcordado() + "\n" +
+                "Vivo: " + this.getVivoString() + "\n" +
+                "Acordado: " + this.getAcordadoString() + "\n" +
                 "Sede: " + this.sede + "\n" +
                 "Fome: " + this.fome + "\n" +
                 "Energia: " + this.energia + "\n" +

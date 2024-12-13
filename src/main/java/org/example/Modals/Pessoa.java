@@ -1,6 +1,9 @@
-package org.example;
+package org.example.Modals;
+
+import org.example.Banco;
 
 public class Pessoa {
+    private int codigo;
     private long cpf;
     private String nome;
     private String senha;
@@ -15,6 +18,14 @@ public class Pessoa {
         this.senha = senha;
     }
 
+    public Pessoa(int codigo, long cpf, String nome, String senha, int petCodigo) {
+        this.codigo = codigo;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.senha = senha;
+        this.pet = Banco.procurarPet(petCodigo);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -27,10 +38,38 @@ public class Pessoa {
         return senha;
     }
 
+    public Pet getPet() {
+        return pet;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
     public void botaPetParaDormir() {
         if (this.pet != null) {
             this.pet.dormir();
         }
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setCpf(long cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
     public void acordarPet() {

@@ -1,88 +1,108 @@
 package org.example;
 
+import org.example.Modals.Alimento;
+import org.example.Modals.Brincadeira;
+import org.example.Modals.Pessoa;
+import org.example.Modals.Pet;
+import org.example.database.CRUDAlimento;
+import org.example.database.CRUDPessoa;
+import org.example.database.CRUDPet;
+import org.example.exceptions.CredenciaisInvalidasException;
+import org.example.exceptions.alimento.AlimentoJaExistenteException;
+import org.example.exceptions.alimento.AlimentoNaoEncontradoException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Banco {
-    public static List<Alimento> alimentos = new ArrayList<>();
-    public static List<Brincadeira> brincadeiras = new ArrayList<>();
-    public static List<Pessoa> pessoas = new ArrayList<>();
-    public static List<Pet> pets = new ArrayList<>();
+    private static final CRUDAlimento alimentoCrud = new CRUDAlimento();
+    private static final CRUDPessoa pessoaCrud = new CRUDPessoa();
+    private static final CRUDPet petCrud = new CRUDPet();
 
-    public static void cadastrarPet(Pet pet) {
-        pets.add(pet);
+    // ALIMENTO
+
+    public static Alimento salvarAlimento(Alimento alimento) {
+        if (alimento.getCodigo() > 0) {
+            return alimentoCrud.atualizarAlimento(alimento);
+        } else {
+            return alimentoCrud.adicionarAlimento(alimento);
+        }
     }
 
-    public static void cadastrarPessoa(Pessoa pessoa) {
-        pessoas.add(pessoa);
-    }
-
-    public static void removerPet(Pet pet) {
-        pets.remove(pet);
-    }
-
-    public static void removerPessoa(Pessoa pessoa) {
-        pessoas.remove(pessoa);
+    public static ArrayList<Alimento> procurarAlimentos() {
+        return alimentoCrud.buscarTodosAlimentos();
     }
 
     public static Alimento procurarAlimento(int codigo) {
-        for (Alimento alimento : alimentos) {
-            if (codigo == alimento.getCodigo()) {
-                return alimento;
-            }
-        }
-        return null;
+        return alimentoCrud.buscarAlimentoPorCodigo(codigo);
     }
 
-    public static Brincadeira procurarBrincadeira(int codigo) {
-        for (Brincadeira brincadeira : brincadeiras) {
-            if (brincadeira.getCodigo() == codigo) {
-                return brincadeira;
-            }
-        }
-        return null;
+    public static Alimento procurarAlimento(String nome) {
+        return alimentoCrud.buscarAlimentoPorNome(nome);
     }
 
-    public static Pet procurarPet(int codigo) {
-        for (Pet pet : pets) {
-            if (pet.getCodigo() == codigo) {
-                return pet;
-            }
+    public static void removerAlimento(Alimento alimento) {
+        alimentoCrud.removerAlimento(alimento);
+    }
+
+    // PESSOA
+
+    public static Pessoa salvarPessoa(Pessoa pessoa) {
+        if (pessoa.getCodigo() > 0) {
+            return pessoaCrud.atualizarPessoa(pessoa);
+        } else {
+            return pessoaCrud.adicionarPessoa(pessoa);
         }
-        return null;
+    }
+
+    public static ArrayList<Pessoa> procurarPessoas() {
+        return pessoaCrud.buscarTodasPessoas();
     }
 
     public static Pessoa procurarPessoa(long cpf) {
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa.getCpf() == cpf) {
-                return pessoa;
-            }
+        return pessoaCrud.buscarPessoaPorCpf(cpf);
+    }
+
+    public static void removerPessoa(Pessoa pessoa) {
+        pessoaCrud.removerPessoa(pessoa);
+    }
+
+    public static Pessoa login(long cpf, String senha) throws CredenciaisInvalidasException {
+        Pessoa pessoa = procurarPessoa(cpf);
+        if (pessoa.getSenha().equals(senha)) {
+            return pessoa;
         }
-        return null;
+        throw new CredenciaisInvalidasException("Senha inválida!");
     }
 
-    public static List<Alimento> getAlimentos() {
-        return alimentos;
+    public static void trocarPet(Pessoa pessoa, Pet pet) {
+        pessoa.setPet(pet);
+        salvarPessoa(pessoa);
     }
 
-    public static List<Brincadeira> getBrincadeiras() {
-        return brincadeiras;
-    }
+    // PET
 
-    public static List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public static List<Pet> getPets() {
-        return pets;
-    }
-
-    public static Pessoa login(long cpf, String senha) {
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa.getCpf() == cpf && pessoa.getSenha().equals(senha)) {
-                return pessoa;
-            }
+    public static Pet salvarPet(Pet pet) {
+        if (pet.getCodigo() > 0) {
+            return petCrud.atualizarPet(pet);
+        } else {
+            return petCrud.adicionarPet(pet);
         }
-        return null;
+    }
+
+    public static ArrayList<Pet> procurarPets() {
+        return petCrud.buscarTodosPets();
+    }
+
+    public static Pet procurarPet(int codigo) {
+        return petCrud.buscarPetPorCodigo(codigo);
+    }
+
+    public static Pet procurarPet(String nome) {
+        return petCrud.buscarPetPorNome(nome);
+    }
+
+    public static void removerPet(Pet pet) {
+        petCrud.removerPet(pet);
     }
 }
